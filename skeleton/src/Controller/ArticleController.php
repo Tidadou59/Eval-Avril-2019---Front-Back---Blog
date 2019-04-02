@@ -9,10 +9,11 @@
 namespace App\Controller;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController
+class ArticleController extends AbstractController
     {
     /**
      * @Route("/")
@@ -27,7 +28,14 @@ class ArticleController
      */
         public function show($titre)
         {
-            return new Response("Mon article ayant pour titre ".$titre." s'affiche.");
+            $comments = ["Commentaire 1","Commentaire 2","Commentaire 3"];
+
+            #return new Response("Mon article ayant pour titre ".$titre." s'affiche.");
+            return $this->render('article/show.html.twig',["title"=>$titre, "coms"=>$comments]);
             #return new Response("Mon super article...");
+
         }
+
+
     }
+
