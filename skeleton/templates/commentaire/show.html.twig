@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <p>Nombre de Commentaire : <b> {{comments|length}} </b></p>
+
+
+    {% for comment in comments %}
+       {# <p class="Commentaire">{{comment}}</p> #}
+
+        {{comment.comContenu}}
+      {#  {{ comment.comDate}} #}
+
+    {% endfor %}
+
+
+
+
+
+
+{% endblock %}
