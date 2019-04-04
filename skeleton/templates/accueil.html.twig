@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="col-lg-12 col-md-7 col-sm-6">
+
+        <p class="Titre"><b><center><h1>{% block title %} Bienvenue sur le blog... {% endblock %}</h1></b></p>
+
+        <p><h2> Pour accèder au contenu du site, Merci de vous connecter. <br>
+            Pas de compte ? pas de panique, l'inscription est très rapide.</h2></p> </center>
+
+
+        <p> <br></p>
+    </div>
+
+    <div class="row">
+
+        {# connexion #}
+        <div class="col-lg-5 col-md-5 col-sm-5" style="background-color: #3f3f3f; border-radius: 5px">
+
+            <form>
+                <fieldset>
+                    <legend>Connexion</legend>
+
+                    <div class="form-group">
+                        <label for="exampleInputPseudo1">Pseudo</label>
+                        <input type="text" class="form-control" id="exampleInputPseudo1" placeholder="Votre Pseudo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Votre Mot de Passe">
+                    </div>
+
+                    <div class="form-group">
+                         <small id="Help" class="form-text text-muted">Mot de passe oublié ? Contacter l'administrateur.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Connexion</button>
+                </fieldset>
+            </form>
+            <p> </p>
+        </div>
+
+
+        {# image #}
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <p> </p>
+             <!-- <img src="../blog2.jpg" width="468" height="312" style="border-radius: 50%"> -->
+        </div>
+
+
+        {# inscription #}
+        <div class="col-lg-5 col-md-5 col-sm-5" style="background-color: #3f3f3f; border-radius: 5px">
+            <form>
+                <fieldset>
+                    <legend>Inscription</legend>
+
+                    <div class="form-group">
+                        <label for="exampleInputPseudo1">Pseudo</label>
+                        <input type="text" class="form-control" id="exampleInputPseudo1" placeholder="Votre Pseudo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Votre Mot de Passe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Votre adresse mail">
+                        <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre email avec qui que ce soit.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Valider votre Inscription</button>
+                </fieldset>
+            </form>
+            <p> </p>
+        </div>
+
+    </div>
+
+
+
+
+
+{#
+    <p class="Article">
+        Youpiiii
+    </p>
+#}
+
+
+
+{% endblock %}

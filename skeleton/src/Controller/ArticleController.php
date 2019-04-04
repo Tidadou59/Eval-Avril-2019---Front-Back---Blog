@@ -22,7 +22,8 @@ class ArticleController extends AbstractController
      */
         public function homepage()
         {
-            return new Response("TEST");
+            /* return new Response("TEST"); */
+            return $this->render('accueil.html.twig');
         }
 
     /**
