@@ -10,9 +10,9 @@
     {#
     {{ form_widget(form) }}
     #}
-    {{ form_row(form.user_pseudo, {'label': '*****', 'attr':{'placeholder': 'Votre Pseudo ...', 'class':'form-control'}}) }}
-    {{ form_row(form.user_password, {'attr':{'placeholder': 'Votre Mot de Passe ...'}}) }}
-    {{ form_row(form.user_mail, {'attr':{'placeholder': 'Votre Adresse Email ...'}}) }}
+    {{ form_row(form.user_pseudo, {'label': 'Pseudo', 'attr':{'placeholder': 'Votre Pseudo ...', 'class':'form-control'}}) }}
+    {{ form_row(form.user_password, {'label': 'Mot de Passe', 'attr':{'placeholder': 'Votre Mot de Passe ...', 'class':'form-control'}}) }}
+    {{ form_row(form.user_mail, {'label': 'Adresse Mail', 'attr':{'placeholder': 'Votre Adresse Email ...', 'class':'form-control'}}) }}
 
 
     <button type="submit" class="btn btn-success"> Inscription ! </button>
