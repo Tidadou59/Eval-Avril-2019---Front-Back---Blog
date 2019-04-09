@@ -1,0 +1,66 @@
+table
+
+user => [user_id | user_pseudo | user_password | user_mail | user_statut]
+
+
+article => [article_id | article_titre | article_contenu | article_date | user_id]
+commentaire => [com_id | com_contenu | com_user_id | com_date | article_id]
+
+
+
+
+
+
+php bin/console make:entity
+
+Class name of the entity to create or update (e.g. AgreeableElephant):
+> article
+
+Your entity already exists! So let's add some new fields!
+
+New property name (press <return> to stop adding fields):
+    > article_titre
+
+    Field type (enter ? to see all types) [string]:
+    > string
+
+    Field length [255]:
+    > 255
+
+    Can this field be null in the database (nullable) (yes/no) [no]:
+    > no
+
+    updated: src/Entity/Article.php
+
+    Add another property? Enter the property name (or press <return> to stop adding fields):
+        > article_contenu
+
+        Field type (enter ? to see all types) [string]:
+        > text
+
+        Can this field be null in the database (nullable) (yes/no) [no]:
+        > no
+
+        updated: src/Entity/Article.php
+
+        Add another property? Enter the property name (or press <return> to stop adding fields):
+            > article_date
+
+            Field type (enter ? to see all types) [string]:
+            > datetime
+
+            Can this field be null in the database (nullable) (yes/no) [no]:
+            > no
+
+            updated: src/Entity/Article.php
+
+            Add another property? Enter the property name (or press <return> to stop adding fields):
+                > user_id
+
+                Field type (enter ? to see all types) [integer]:
+                > bigint
+
+                Can this field be null in the database (nullable) (yes/no) [no]:
+                > no
+
+                updated: src/Entity/Article.php

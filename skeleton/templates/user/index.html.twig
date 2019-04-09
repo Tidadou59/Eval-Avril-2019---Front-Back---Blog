@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - User index{% endblock %}
+
+{% block body %}
+    <h1>Administration - Utilisateur :</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pseudo</th>
+                <th>Password</th>
+                <th>Mail</th>
+                <th>Sstatut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.userPseudo }}</td>
+                <td>{{ user.userPassword }}</td>
+                <td>{{ user.userMail }}</td>
+                <td>{{ user.userStatut }}</td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">
+                        <img src="..\edit-vue.png"
+                             alt="edit"
+                             width="30"
+                             height="30">
+                    </a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">
+                        <img src="..\edit.png"
+                             alt="edit"
+                             width="30"
+                             height="30">
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_new') }}">Create new</a>
+{% endblock %}

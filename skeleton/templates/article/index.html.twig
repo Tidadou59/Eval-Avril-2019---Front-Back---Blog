@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+
+    <h1>Liste des Articles</h1>
+    <h2>Pour accèder à un article, cliquer sur l'un des titres</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                {% if is_granted('ROLE_ADMIN') %}
+                <th>Id</th>
+                {% endif %}
+
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Date</th>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                <th>User_id</th>
+
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                {% if is_granted('ROLE_ADMIN') %}
+                <td>{{ article.id }}</td>
+                {% endif %}
+
+                <td>{{ article.articleTitre }}</td>
+                <td>{{ article.articleContenu }}</td>
+                <td>{{ article.articleDate }}</td>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                <td>{{ article.userId }}</td>
+
+                <td>
+                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
+                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                </td>
+                {% endif %}
+            </tr>
+       {# {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr> #}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('article_new') }}">Create new</a>
+
+    {% else %}
+
+    <p class="Titre"><b><center><h1> Bienvenue sur le blog... </h1></b></p>
+
+    <p><h2> Pour accèder au contenu du site, Merci de vous connecter. <br>
+    Pas de compte ? pas de panique, l'inscription est très rapide.</h2></p> </center>
+
+
+    <p> <br></p>
+    {% endif %}
+
+
+{% endblock %}

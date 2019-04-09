@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/slate/bootstrap.min.css"/>
+
+    </head>
+    <body>
+
+        <!-- Menu -->
+        <nav>
+        <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">UpTo Actu'</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item"> <a class="nav-link" href="/"> <img src="../home.png" width="20" height="20"> Accueil </a></li>
+
+                    {% if not app.user %}
+                    <li class="nav-item"><a class="nav-link" href="/connexion"> Connexion </a></li>
+                    <li class="nav-item"><a class="nav-link" href="/inscription"> Inscription </a></li>
+                    {% endif %}
+                    <!--
+                    <li class="nav-item"><a class="nav-link" href="#"> Photo / Vidéo </a> </li>
+                    <li class="nav-item"><a class="nav-link" href="#"> Agenda </a> </li>
+                    -->
+                    <li class="nav-item">{# <a class="nav-link" href="/contact">Contact</a> #}</li>
+                </ul>
+            </div>
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <p>
+                    Bienvenue {{ app.user.UserPseudo }} . Tu es connecté en tand qu'Administrateur.
+                    <a href="{{ logout_path('main') }}">Déconnexion</a>
+                </p>
+            {% endif %}
+
+            {% if is_granted('ROLE_USER') %}
+                <p>
+                    <span> Bienvenue {{ app.user.UserPseudo }} . Connecté en tand qu'Utilisateur.</span>
+                    <a href="{{ logout_path('main') }}">Déconnexion</a>
+                </p>
+            {% endif %}
+
+        </nav>
+
+
+
+
+
+        <div class="container">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+
+            {% block javascripts %}
+                <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+                <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
+                <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+                <script src="https://bootswatch.com/_assets/js/custom.js"></script>
+            {% endblock %}
+    </body>
+</html>
