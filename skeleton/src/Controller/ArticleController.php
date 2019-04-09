@@ -1,82 +1,96 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: David
- * Date: 02/04/2019
- * Time: 13:26
- */
 
 namespace App\Controller;
 
-
+use App\Entity\Article;
+use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Entity\Article;
-
+/**
+ * @Route("/article")
+ */
 class ArticleController extends AbstractController
-  {
+{
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/", name="article_index", methods={"GET"})
      */
-        public function homepage()
-        {
-            /* return new Response("TEST"); */
-            return $this->render('accueil.html.twig');
-        }
-
-    /**
-     * @Route("/articles/{titre}")
-     */
-        public function show($titre)
-        {
-            $comments = ["Commentaire 1","Commentaire 2","Commentaire 3"];
-
-            #return new Response("Mon article ayant pour titre ".$titre." s'affiche.");
-            return $this->render('article/show.html.twig',["title"=>$titre, "comments"=>$comments]);
-            #return new Response("Mon super article...");
-
-        }
+    public function index(ArticleRepository $articleRepository): Response
+    {
+        return $this->render('article/index.html.twig', [
+            'articles' => $articleRepository->findAll(),
+        ]);
+    }
 
     /**
-     * @Route("/articleCreate", name="article_create")
+     * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-        public function create()
-        {
+    public function new(Request $request): Response
+    {
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-
-            $article = new Article();
-            $article->setArticleTitre('Titre Que Vous Voulez');
-            $article->setArticleContenu('Du contenu');
-
-            $article->setArticleDate('2019-04-03');
-            $article->setUserId('1');
-
-
-            // Cette instruction permet d'indiquer à Doctrine qu'on souhaite sauvegarder en mémoire le nouvel enregistrement
             $entityManager->persist($article);
-
-            // Cette instruction éxécute la requete , en réalité il s'agit d'éxécuter toutes les requetes plaçées en mémoire,
-            // dans notre cas, il n'y en a qu'une
             $entityManager->flush();
 
-            return new Response('Saved new article with id '.$article->getId());
+            return $this->redirectToRoute('article_index');
         }
+
+        return $this->render('article/new.html.twig', [
+            'article' => $article,
+            'form' => $form->createView(),
+        ]);
+    }
 
     /**
-     * @Route("/article/{id}", name="article_show_from_db")
+     * @Route("/{id}", name="article_show", methods={"GET"})
      */
-        public function showFromDB(Article $article)
-        {
-            $comments = ["Commentaire 1","Commentaire 2","Commentaire 3"];
+    public function show(Article $article): Response
+    {
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
+        ]);
+    }
 
-            return $this->render('article/show.html.twig',
-            ["title"=>$article->getArticleTitre(),
-                "contenu"=>$article->getArticleContenu(),
-                "comments"=>$comments
+    /**
+     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Article $article): Response
+    {
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('article_index', [
+                'id' => $article->getId(),
             ]);
-
         }
 
-  }
+        return $this->render('article/edit.html.twig', [
+            'article' => $article,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="article_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Article $article): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($article);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('article_index');
+    }
+}

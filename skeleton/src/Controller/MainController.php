@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,13 +23,25 @@ class MainController extends AbstractController
     public function homepage()
     {
 
-        if (true === $this->get("security.authorization_checker")->isGranted('ROLE_ADMIN')) {
+        /*if (true === $this->get("security.authorization_checker")->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute("user_index");
         } elseif (true === $this->get("security.authorization_checker")->isGranted('ROLE_USER')) {
             return $this->redirectToRoute("article");
         } else {
-            return $this->redirectToRoute("login");
+            return $this->redirectToRoute("app_login");
+        }*/
+
+
+
+        /*
+        if (true === $this->get("security.authorization_checker")->isGranted('IS_AUTHENFICATED_FULLY')) {
+        */
+            return $this->redirectToRoute('article_index');
+         /*
+        }else{
+            return $this->render('accueil.html.twig');
         }
+         */
     }
 }
 
